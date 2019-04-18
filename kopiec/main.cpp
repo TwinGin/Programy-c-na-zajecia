@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstdlib>
+#include <time.h>  
+using namespace std;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+const int N=11;
+int kopiec[N]={15,12,11,10,11,8,5,3,7,2,9};
+
+void down(int N,int i){
+		int l,r,wiekszy;
+	l=2*i+1;
+	r=2*i+2;
+	if(l<N && kopiec[l]>kopiec[i])
+	wiekszy=l;
+	else
+	wiekszy=i;
+	if(r<N && kopiec[r]>kopiec[wiekszy])
+	wiekszy=r;
+	if(wiekszy!=i)
+	{
+		swap(kopiec[i],kopiec[wiekszy]);
+		down(N,wiekszy);
+		}	
+}
+
+void up(int N,int id){
+	int father = (id-1)/2;
+	if(id>0){	
+	if(kopiec[id] > kopiec[father]){
+		swap(kopiec[id],kopiec[father]);
+		up(N, father);
+	}
+}
+}
+
+void sortuj(){
+int X=N-1;
+	for(int i=X;i>0;i--)
+	{
+		swap(kopiec[0],kopiec[i]);
+		
+		X--;
+		down(X,0);
+	}
+}
+void tworzenie()
+{
+	for(int i=N/2;i>=0;i--)
+	down(N,i);
+}
+int main(int argc, char** argv) {
+	tworzenie();
+	for(int i=0;i<N;i++){
+		cout<<kopiec[i]<<" ";
+	}
+	cout<<endl;
+	sortuj();
+	for(int i=0;i<N;i++){
+		cout<<kopiec[i]<<" ";
+	}
+	return 0;
+}
